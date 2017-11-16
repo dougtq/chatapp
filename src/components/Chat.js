@@ -17,7 +17,7 @@ class Chat extends Component {
           <div className='col-4'>
             <div className='card'>
               <div className='card-body'>
-                <div className='card-title'>Global Chat App</div>
+                <div className='card-title'>Chat App</div>
                 <hr />
                 <div className='messages'>
                   {this.state.messages.map(message =>
