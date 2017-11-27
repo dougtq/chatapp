@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './Chat.css'
 import io from 'socket.io-client'
 import { config } from 'dotenv'
 
@@ -13,23 +14,26 @@ class Chat extends Component {
       message: '',
       messages: []
     }
-    this.socket = io(`192.168.15.119:3080`)
+    this.socket = io(`localhost:3080`)
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.addMessage(data)
     })
     this.sendMessage = this.sendMessage.bind(this)
+    this.keyVerify = this.keyVerify.bind(this)
   }
 
   sendMessage (e) {
     e.preventDefault()
-    this.socket.emit('SEND_MESSAGE', {
-      author: this.state.username,
-      message: this.state.message
-    })
-
-    this.setState({
-      message: ''
-    })
+    if (this.state.message) {
+      this.socket.emit('SEND_MESSAGE', {
+        author: this.state.username,
+        message: this.state.message
+      })
+  
+      this.setState({
+        message: ''
+      })
+    }
   }
 
   addMessage (data) {
@@ -37,7 +41,13 @@ class Chat extends Component {
     this.setState({
       messages: [...this.state.messages, data]
     })
-    console.log(this.state.messages)
+  }
+
+  keyVerify (e) {
+    if (e.key === "Enter") {
+      let btn = document.getElementById('btnEnvia')
+      btn.click()
+    }
   }
 
   render () {
@@ -52,7 +62,7 @@ class Chat extends Component {
                 <div className='messages'>
                   {this.state.messages.map(message => (
                     <div>
-                      {message.author}: {message.message}
+                      <strong>{message.author}</strong>: {message.message}
                     </div>
                   ))}
                 </div>
@@ -71,10 +81,12 @@ class Chat extends Component {
                   placeholder='Message'
                   className='form-control'
                   value={this.state.message}
+                  onKeyPress={this.keyVerify}
                   onChange={ev => this.setState({ message: ev.target.value })}
                 />
                 <br />
                 <button
+                  id="btnEnvia"
                   className='btn btn-primary form-control'
                   onClick={this.sendMessage}
                 >
