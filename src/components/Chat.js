@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import './Chat.css'
 import io from 'socket.io-client'
-import { config } from 'dotenv'
-
-config()
-console.log(process.env)
 
 class Chat extends Component {
   constructor (props) {
@@ -48,7 +44,7 @@ class Chat extends Component {
   }
 
   keyVerify (e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       let btn = document.getElementById('btnEnvia')
       btn.click()
     }
@@ -58,7 +54,7 @@ class Chat extends Component {
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col-6 col-offset-6' align='center'>
+          <div className='col-6 offset-md-3' align='center'>
             <div className='card'>
               <div className='card-body'>
                 <div className='card-title'>
@@ -78,7 +74,7 @@ class Chat extends Component {
               </div>
               <div className='card-footer'>
                 <input
-                  type='text'
+                  type='text' maxlength='20'
                   placeholder={this.userHolder}
                   className='form-control'
                   value={this.state.username}
