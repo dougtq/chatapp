@@ -5,7 +5,7 @@ class App extends Component {
   render () {
     return (
       <div>
-        <Chat />
+        <Chat title='React Chat' />
       </div>
     )
   }
