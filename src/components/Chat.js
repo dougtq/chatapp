@@ -12,6 +12,8 @@ class Chat extends Component {
     this.state = {
       username: '',
       message: '',
+      time: '',
+      timeframe: '',
       messages: []
     }
     this.socket = io(`localhost:3080`)
@@ -63,6 +65,9 @@ class Chat extends Component {
                   {this.state.messages.map(message => (
                     <div>
                       <strong>{message.author}</strong>: {message.message}
+                      <div className='time'>
+                        {message.time} {message.timeframe}
+                      </div>
                     </div>
                   ))}
                 </div>
