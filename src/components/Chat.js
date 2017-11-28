@@ -9,6 +9,8 @@ console.log(process.env)
 class Chat extends Component {
   constructor (props) {
     super(props)
+    this.userHolder='Digite seu nome de usuário do chat aqui...'
+    this.msgHolder='Digite sua mensagem aqui...'
     this.state = {
       username: '',
       message: '',
@@ -56,11 +58,13 @@ class Chat extends Component {
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col-4'>
+          <div className='col-6 col-offset-6' align='center'>
             <div className='card'>
               <div className='card-body'>
-                <div className='card-title'>Chat App</div>
-                <hr />
+                <div className='card-title'>
+                  {this.props.title}
+                  <hr />
+                </div>
                 <div className='messages'>
                   {this.state.messages.map(message => (
                     <div>
@@ -75,7 +79,7 @@ class Chat extends Component {
               <div className='card-footer'>
                 <input
                   type='text'
-                  placeholder='Username'
+                  placeholder={this.userHolder}
                   className='form-control'
                   value={this.state.username}
                   onChange={ev => this.setState({ username: ev.target.value })}
@@ -83,7 +87,7 @@ class Chat extends Component {
                 <br />
                 <input
                   type='text'
-                  placeholder='Message'
+                  placeholder={this.msgHolder}
                   className='form-control'
                   value={this.state.message}
                   onKeyPress={this.keyVerify}
@@ -92,7 +96,7 @@ class Chat extends Component {
                 <br />
                 <button
                   id="btnEnvia"
-                  className='btn btn-primary form-control'
+                  className='btn btn-success form-control'
                   onClick={this.sendMessage}
                 >
                   Enviar
